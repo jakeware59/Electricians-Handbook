@@ -2,27 +2,27 @@
 
 Industrial electrician's field assistant and troubleshooting handbook.
 
-## Version
-v0.1 Alpha
+## v0.2 Alpha
+- Separate fault-code and symptoms fields
+- Separate measurements, observations and actions-taken fields
+- Offline rule-based troubleshooting analysis
+- Ranked likely causes
+- Equipment-specific next checks
+- Existing v0.1 saved sessions are migrated automatically
 
-## Included
-- Workbench dashboard
-- Guided troubleshooting sessions
-- Equipment records
-- Material-list builder
-- Transformer-current calculator
-- Basic voltage-drop calculator
-- Code-search workflow mock-up
-- Offline-capable Progressive Web App
+## Update instructions
+Replace these root-level files in the GitHub repository:
 
-## GitHub Pages
-Upload the contents of this package to the repository root so `index.html` is beside `README.md`.
+- `index.html`
+- `app.css`
+- `app.js`
+- `manifest.json`
+- `sw.js`
+- `icon-192.png`
+- `icon-512.png`
 
-Then go to:
+Keep `README.md` if you prefer your existing version.
 
-`Settings → Pages → Deploy from a branch → main → /(root)`
+After committing, open the live site with `?v=2` appended once to force a fresh load.
 
-Do not upload licensed electrical-code PDFs, employer documents, customer information, passwords, or API keys to a public repository.
-
-## Data
-This alpha stores records in the browser's local storage on the device being used.
+Do not upload licensed code PDFs, employer documents, customer information, passwords or API keys to a public repository.

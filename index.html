@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="Ratchet's Handbook — Industrial electrician's field assistant">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="apple-touch-icon" href="./assets/icons/icon-192.png">
+  <link rel="stylesheet" href="./css/app.css">
+  <title>Ratchet's Handbook</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">Industrial Electrician's Field Assistant</div>
+        <h1>⚡ Ratchet's Handbook</h1>
+      </div>
+      <span class="version">v0.1 Alpha</span>
+    </header>
+
+    <main id="app">
+      <section class="screen active" data-screen="workbench">
+        <div class="hero">
+          <div>
+            <div class="eyebrow">Workbench</div>
+            <h2>Pick up where you left off.</h2>
+            <p>Open sessions, equipment history, material lists and quick tools in one place.</p>
+          </div>
+          <button class="primary" data-open="troubleshooting">Start troubleshooting</button>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><strong id="openSessionsCount">0</strong><span>Open sessions</span></div>
+          <div class="stat"><strong id="equipmentCount">0</strong><span>Equipment</span></div>
+          <div class="stat"><strong id="materialCount">0</strong><span>Material lists</span></div>
+        </div>
+
+        <section class="panel">
+          <div class="panel-head"><h3>Active work</h3><button class="text-btn" data-open="troubleshooting">View all</button></div>
+          <div id="activeWork" class="empty">No active troubleshooting sessions yet.</div>
+        </section>
+
+        <section class="quick-grid">
+          <button class="quick-card" data-open="equipment"><span>🏭</span><b>Equipment</b><small>Machines and repair history</small></button>
+          <button class="quick-card" data-open="materials"><span>📋</span><b>Materials</b><small>Build job-ready lists</small></button>
+          <button class="quick-card" data-open="calculators"><span>🧮</span><b>Calculators</b><small>Transformer, voltage drop and more</small></button>
+          <button class="quick-card" data-open="code"><span>📘</span><b>Code Search</b><small>Private rule-reference workflow</small></button>
+        </section>
+      </section>
+
+      <section class="screen" data-screen="troubleshooting">
+        <div class="section-title">
+          <div><div class="eyebrow">Diagnostics</div><h2>Troubleshooting</h2></div>
+          <button class="secondary" id="newSessionBtn">New session</button>
+        </div>
+
+        <div class="panel form-panel">
+          <label>Equipment type
+            <select id="tsType">
+              <option>VFD / Servo Drive</option>
+              <option>Motor</option>
+              <option>Control Circuit</option>
+              <option>PLC Input / Output</option>
+              <option>Transformer</option>
+              <option>Sensor / Switch</option>
+            </select>
+          </label>
+          <label>Equipment name
+            <input id="tsEquipment" placeholder="Example: Forming Machine #2 Arbor Servo">
+          </label>
+          <label>Fault code or symptom
+            <input id="tsSymptom" placeholder="Example: ALE 06 overload">
+          </label>
+          <label>What changed recently?
+            <textarea id="tsChanged" placeholder="Mechanical setup, wiring, parameters, product, environment..."></textarea>
+          </label>
+          <label>Measurements
+            <textarea id="tsMeasurements" placeholder="Voltage, current, resistance, torque, temperature..."></textarea>
+          </label>
+          <div class="button-row">
+            <button class="primary" id="saveSessionBtn">Save session</button>
+            <button class="secondary" id="generateStepsBtn">Generate next checks</button>
+          </div>
+          <div id="diagnosticResult" class="result hidden"></div>
+        </div>
+
+        <section class="panel">
+          <div class="panel-head"><h3>Saved sessions</h3></div>
+          <div id="sessionList" class="empty">No saved sessions.</div>
+        </section>
+      </section>
+
+      <section class="screen" data-screen="equipment">
+        <div class="section-title">
+          <div><div class="eyebrow">Asset history</div><h2>Equipment</h2></div>
+        </div>
+        <div class="panel form-panel">
+          <label>Equipment name<input id="eqName" placeholder="Arbor Servo Drive"></label>
+          <label>Manufacturer / model<input id="eqModel" placeholder="SureServo SVA-2100"></label>
+          <label>Location<input id="eqLocation" placeholder="Line 2 forming machine"></label>
+          <label>Notes<textarea id="eqNotes" placeholder="Voltage, horsepower, parameters, known issues..."></textarea></label>
+          <button class="primary" id="saveEquipmentBtn">Save equipment</button>
+        </div>
+        <section class="panel"><div class="panel-head"><h3>Saved equipment</h3></div><div id="equipmentList" class="empty">No equipment saved.</div></section>
+      </section>
+
+      <section class="screen" data-screen="materials">
+        <div class="section-title"><div><div class="eyebrow">Planning</div><h2>Material Lists</h2></div></div>
+        <div class="panel form-panel">
+          <label>List name<input id="matName" placeholder="100A splitter feed"></label>
+          <label>Job type
+            <select id="matJob">
+              <option>EMT conduit run</option>
+              <option>Transformer installation</option>
+              <option>Motor feed</option>
+              <option>Control-panel modification</option>
+            </select>
+          </label>
+          <label>Conduit size
+            <select id="matSize"><option>1/2 in</option><option>3/4 in</option><option>1 in</option><option>1-1/4 in</option><option>1-1/2 in</option><option>2 in</option></select>
+          </label>
+          <label>Approximate run length (ft)<input id="matLength" type="number" min="1" value="40"></label>
+          <label>Mounting method
+            <select id="matMount"><option>Unistrut and threaded rod</option><option>One-hole straps</option><option>Beam clamps</option><option>Wall-mounted strut</option></select>
+          </label>
+          <div class="button-row"><button class="primary" id="generateMaterialsBtn">Generate list</button><button class="secondary" id="saveMaterialsBtn">Save list</button></div>
+          <div id="materialPreview" class="result hidden"></div>
+        </div>
+        <section class="panel"><div class="panel-head"><h3>Saved lists</h3></div><div id="materialList" class="empty">No saved material lists.</div></section>
+      </section>
+
+      <section class="screen" data-screen="calculators">
+        <div class="section-title"><div><div class="eyebrow">Quick tools</div><h2>Calculators</h2></div></div>
+        <div class="panel form-panel">
+          <h3>Transformer full-load current</h3>
+          <label>kVA<input id="calcKva" type="number" value="45"></label>
+          <label>Voltage<input id="calcVolts" type="number" value="208"></label>
+          <label>Phase<select id="calcPhase"><option value="3">Three-phase</option><option value="1">Single-phase</option></select></label>
+          <button class="primary" id="calcTransformerBtn">Calculate</button>
+          <div id="transformerResult" class="result hidden"></div>
+        </div>
+        <div class="panel form-panel">
+          <h3>Basic voltage-drop estimate</h3>
+          <label>Current (A)<input id="vdAmps" type="number" value="20"></label>
+          <label>One-way length (ft)<input id="vdFeet" type="number" value="100"></label>
+          <label>Conductor resistance (Ω/1000 ft)<input id="vdResistance" type="number" step="0.001" value="1.93"></label>
+          <button class="primary" id="calcVdBtn">Calculate</button>
+          <div id="vdResult" class="result hidden"></div>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="code">
+        <div class="section-title"><div><div class="eyebrow">Private reference</div><h2>Code Search</h2></div></div>
+        <div class="panel form-panel">
+          <label>Plain-language question or rule number<input id="codeQuery" placeholder="Transformer secondary neutral sizing"></label>
+          <button class="primary" id="searchCodeBtn">Search reference workflow</button>
+          <div class="notice">This alpha demonstrates the search workflow only. The private CEC index will return rule and page references without publishing the full standard.</div>
+          <div id="codeResult" class="result hidden"></div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <button class="active" data-nav="workbench"><span>⌂</span>Workbench</button>
+      <button data-nav="troubleshooting"><span>🧰</span>Diagnose</button>
+      <button data-nav="equipment"><span>🏭</span>Equipment</button>
+      <button data-nav="materials"><span>📋</span>Materials</button>
+      <button data-nav="calculators"><span>🧮</span>Tools</button>
+    </nav>
+  </div>
+  <script src="./js/app.js"></script>
+</body>
+</html>

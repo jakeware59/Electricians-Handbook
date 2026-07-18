@@ -1,0 +1,30 @@
+⚡ Electrician's Handbook
+Industrial maintenance field assistant
+Prototype v0.1
+What are we working on?
+Start a troubleshooting session, build a material list, search your code reference, or review machine history.
+🧰
+Troubleshoot
+Guided diagnostics with readings and next steps.
+📋
+Material List
+Create and save job-ready material lists.
+🏭
+Equipment
+Machines, drives, motors, PLCs and repair history.
+📘
+Code Search
+Search rules, tables, notes and your own bookmarks.
+Recent activity
+No saved sessions yet
+Your troubleshooting and material-list history will appear here.
+⌂
+Home
+🧰
+Diagnose
+📋
+Materials
+🏭
+Equipment
+＋
+More
